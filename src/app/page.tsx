@@ -1,14 +1,15 @@
-import { api, HydrateClient } from "~/trpc/server";
+import { HydrateClient } from "~/trpc/server";
 import { Navbar } from "./_components/navbar";
+import { Banner } from "./_components/banner";
 
 export default async function Home() {
 
-  void api.post.getLatest.prefetch();
 
   return (
     <HydrateClient>
-      <main className="flex min-h-screen flex-col items-center justify-center">
+      <main className="flex flex-col min-h-screen">
        <Navbar />
+       <Banner />
       </main>
     </HydrateClient>
   );

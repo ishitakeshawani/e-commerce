@@ -9,7 +9,7 @@ import {
 export const Navbar = () => {
   return (
     <nav className="w-full bg-white">
-      <div className="absolute right-0 top-0 mr-4 mt-4 w-full">
+      <div className="right-0 top-0 mr-4 mt-4 w-full">
         <div className="flex items-end justify-end space-x-5">
           <Link href="/">
             <span className="text-xs font-normal text-customGray">Help</span>
