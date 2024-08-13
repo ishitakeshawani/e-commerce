@@ -9,7 +9,7 @@ import {
 export const Navbar = () => {
   return (
     <nav className="w-full bg-white">
-      <div className="right-0 top-0 mr-4 mt-4 w-full">
+      <div className="right-0 top-0 mr-4 mt-4 w-full px-4">
         <div className="flex items-end justify-end space-x-5">
           <Link href="/">
             <span className="text-xs font-normal text-customGray">Help</span>
@@ -30,7 +30,7 @@ export const Navbar = () => {
           <span className="text-headingColor text-3xl font-bold">
             ECOMMERCE
           </span>
-          <div className="text-navbarItemColor flex space-x-4 text-base font-semibold">
+          <div className="text-navbarItemColor flex items-center space-x-20 text-base font-semibold">
             <span>Categories</span>
             <span>Sale</span>
             <span>Clearance</span>
