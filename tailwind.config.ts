@@ -12,7 +12,8 @@ export default {
         white: '#FFFFFF',
         customGray: '#333333',
         navbarItemColor: '#000000',
-        bannerColor: '#F4F4F4'
+        bannerColor: '#F4F4F4',
+        borderColor: '#C1C1C1'
       },
     },
   },
