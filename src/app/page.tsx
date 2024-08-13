@@ -2,6 +2,7 @@ import { HydrateClient } from "~/trpc/server";
 import { Navbar } from "./_components/navbar";
 import { Banner } from "./_components/banner";
 import SignUp from "./signup";
+import { VerifyOTP } from "./verifyotp";
 
 export default async function Home() {
 

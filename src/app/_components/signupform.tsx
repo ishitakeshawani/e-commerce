@@ -2,14 +2,18 @@
 import { useState } from "react";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from 'next/navigation'; 
 
 export const SignupForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
+    router.push('/verifyotp');
+
     e.preventDefault();
     try {
      
@@ -21,7 +25,7 @@ export const SignupForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex w-full max-w-sm flex-col space-y-7"
+      className="flex w-full max-w-full flex-col space-y-7"
     >
       <div className="flex flex-col">
         <label htmlFor="name">Name</label>
@@ -57,7 +61,7 @@ export const SignupForm = () => {
         />
       </div>
       <button type="submit" className="bg-navbarItemColor p-2 text-white">
-      Create account
+      CREATE ACCOUNT
       </button>
       {message && <p>{message}</p>}
       <p className="text-center">Have an Account? <Link href="/login" className="">Login</Link></p>
