@@ -93,7 +93,12 @@ export const authRouter = createTRPCRouter({
 
         await prisma.oTP.deleteMany({ where: { userId: user.id } });
 
-        return { message: 'OTP verified successfully', user:user };
+        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, {
+          expiresIn: '1h',
+        });
+
+
+        return { message: 'OTP verified successfully', user:user, token };
 
       } catch (error) {
         if (isError(error)) {
@@ -127,7 +132,7 @@ export const authRouter = createTRPCRouter({
           expiresIn: '1h',
         });
 
-        return { message: 'Login successful', token };
+        return { message: 'Login successful', token, user };
 
       } catch (error) {
         if (isError(error)) {
