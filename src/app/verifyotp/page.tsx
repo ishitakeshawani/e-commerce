@@ -1,9 +1,17 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import { OtpForm } from "../_components/verifyotpform";
 import { useSearchParams } from 'next/navigation'
 
 const VerifyOTP = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <VerifyOTPContent />
+    </Suspense>
+  );
+};
+
+const VerifyOTPContent = () => {
   const searchParams = useSearchParams()
   function maskEmail(email:string) {
     if(email){
