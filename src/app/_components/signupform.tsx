@@ -18,7 +18,7 @@ export const SignupForm = () => {
     setIsLoading(true)
 
     try {
-      const res = await signup.mutateAsync({ name, email, password });
+      await signup.mutateAsync({ name, email, password });
       const url = `/verifyotp?email=${encodeURIComponent(email)}`;
       router.push(url); 
       setIsLoading(false)
