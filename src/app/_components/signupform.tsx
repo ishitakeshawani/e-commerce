@@ -1,29 +1,41 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from 'next/navigation'; 
+import { useRouter } from 'next/navigation';  
+import { api } from '~/trpc/react';
 
 export const SignupForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [isLoading,setIsLoading] = useState(false)
+  const signup = api.auth.signup.useMutation();
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    router.push('/verifyotp');
-
     e.preventDefault();
+    setIsLoading(true)
+
     try {
-     
+      const res = await signup.mutateAsync({ name, email, password });
+      const url = `/verifyotp?email=${encodeURIComponent(email)}`;
+      router.push(url); 
+      setIsLoading(false)
     } catch (error) {
-      setMessage("Error signing up");
+      let errorMessage = "Failed to do create user";
+      if (error instanceof Error) {
+        errorMessage = error.message
+      }
+      setMessage(errorMessage)
+      setIsLoading(false)
     }
   };
 
   return (
     <form
-      onSubmit={handleSubmit}
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      onSubmit={(e) => handleSubmit(e)}
       className="flex w-full max-w-full flex-col space-y-7"
     >
       <div className="flex flex-col">
@@ -59,11 +71,11 @@ export const SignupForm = () => {
           required
         />
       </div>
-      <button type="submit" className="bg-navbarItemColor p-2 text-white">
-      CREATE ACCOUNT
+      <button type="submit" className="bg-navbarItemColor p-2 text-white" disabled={isLoading}>
+      {isLoading ? "Loading" : "CREATE ACCOUNT"}
       </button>
       {message && <p>{message}</p>}
-      <p className="text-center">Have an Account? <Link href="/login" className="">Login</Link></p>
+      <p className="text-center">Have an Account? <Link href="/login" className="">LOGIN</Link></p>
     </form>
   );
 };

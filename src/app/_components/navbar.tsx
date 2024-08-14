@@ -27,9 +27,9 @@ export const Navbar = () => {
         </div>
 
         <div className="mt-2 flex w-full flex-wrap items-center justify-between px-10">
-          <span className="text-headingColor text-3xl font-bold">
+          <Link href="/" className="text-headingColor text-3xl font-bold">
             ECOMMERCE
-          </span>
+          </Link>
           <div className="text-navbarItemColor flex items-center space-x-20 text-base font-semibold">
             <span>Categories</span>
             <span>Sale</span>
