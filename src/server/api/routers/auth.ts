@@ -54,7 +54,7 @@ export const authRouter = createTRPCRouter({
           text: `Hello ${name}, your OTP code is ${otp}. It will expire in 2 minutes.`,
         });
 
-        return { message: 'User created, OTP sent to email', user:user };
+        return { message: 'User created, OTP sent to email' };
 
       } catch (error) {
         if (isError(error)) {
@@ -75,8 +75,14 @@ export const authRouter = createTRPCRouter({
 
       try {
         const user = await prisma.user.findUnique({ where: { email } });
+        let userData = {}
         if (!user) {
           throw new Error('User not found');
+        }else{
+          userData = {
+            name:user.name,
+            email:user.email
+          }
         }
 
         const validOtp = await prisma.oTP.findFirst({
@@ -98,7 +104,7 @@ export const authRouter = createTRPCRouter({
         });
 
 
-        return { message: 'OTP verified successfully', user:user, token };
+        return { message: 'OTP verified successfully', user:userData, token };
 
       } catch (error) {
         if (isError(error)) {
@@ -119,8 +125,14 @@ export const authRouter = createTRPCRouter({
 
       try {
         const user = await prisma.user.findUnique({ where: { email } });
+        let userData = {}
         if (!user) {
           throw new Error('Invalid email or password');
+        }else{
+          userData = {
+            name:user.name,
+            email:user.email
+          }
         }
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -132,7 +144,7 @@ export const authRouter = createTRPCRouter({
           expiresIn: '1h',
         });
 
-        return { message: 'Login successful', token, user };
+        return { message: 'Login successful', token, user:userData };
 
       } catch (error) {
         if (isError(error)) {

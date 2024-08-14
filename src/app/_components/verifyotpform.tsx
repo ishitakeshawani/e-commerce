@@ -21,7 +21,8 @@ export const OtpForm = () => {
     try {
       if (typeof email === 'string') {
       const res = await verifyOtp.mutateAsync({ email, otp });
-      console.log(res.message,res);
+      localStorage.setItem('token', res.token);
+      localStorage.setItem('user', JSON.stringify(res.user));
       if(res.message){
         router.push("/products")
       }

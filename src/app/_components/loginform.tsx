@@ -24,8 +24,8 @@ export const LoginForm = () => {
 
     try {
       const res = await login.mutateAsync({ email, password });
-      console.log(res.message);
       localStorage.setItem('token', res.token);
+      localStorage.setItem('user', JSON.stringify(res.user));
       router.push("/products"); 
       setIsLoading(false)
     } catch (error) {
