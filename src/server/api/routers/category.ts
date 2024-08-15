@@ -52,9 +52,10 @@ export const categoryRouter = createTRPCRouter({
     .input(z.object({
       userId: z.string(),
       categoryId: z.number(),
+      isSelected: z.boolean()
     }))
     .mutation(async ({ input }) => {
-      const { userId, categoryId } = input;
+      const { userId, categoryId, isSelected } = input;
 
       try {
         const user = await prisma.user.findUnique({ where: { id: userId } });
@@ -68,14 +69,26 @@ export const categoryRouter = createTRPCRouter({
         if (!category) {
           throw new Error('Category not found');
         }
-        await prisma.user.update({
-          where: { id: userId },
-          data: {
-            selectedCategories: {
-              connect: { id: categoryId },
+
+        if (isSelected) {
+          await prisma.user.update({
+            where: { id: userId },
+            data: {
+              selectedCategories: {
+                connect: { id: categoryId },
+              },
             },
-          },
-        });
+          });
+        } else {
+          await prisma.user.update({
+            where: { id: userId },
+            data: {
+              selectedCategories: {
+                disconnect: { id: categoryId },
+              },
+            },
+          });
+        }
 
         return { success: true };
       } catch (error) {

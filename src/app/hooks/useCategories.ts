@@ -61,7 +61,7 @@ export const useCategories = (page: number) => {
 
     if (userId) {
       selectCategory(
-        { userId, categoryId },
+        { userId, categoryId, isSelected: !wasSelected  },
         {
           onError: (error) => {
             console.error("Error selecting category:", error);
