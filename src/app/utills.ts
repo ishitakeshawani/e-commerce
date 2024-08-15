@@ -14,3 +14,7 @@ export const getUser = () => {
   }
   return "";
 }
+
+export const logoutUser = () => {
+  localStorage.clear();
+};

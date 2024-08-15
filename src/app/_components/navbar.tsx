@@ -3,9 +3,10 @@ import Link from "next/link";
 import {
   MagnifyingGlassIcon as SearchIcon,
   ShoppingCartIcon,
+  UserCircleIcon
 } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
-import { getUser } from "../utills";
+import { getUser, logoutUser } from "../utills";
 
 interface User {
   name: string;
@@ -26,6 +27,11 @@ export const Navbar = () => {
       }
     }
   }, []);
+
+  const handleLogout = () => {
+    logoutUser();
+    window.location.href = "/signup";
+  };
 
   return (
     <nav className="w-full bg-white">
@@ -64,6 +70,9 @@ export const Navbar = () => {
             <span>
               <ShoppingCartIcon className="h-6 w-6 text-customGray" />
             </span>
+            <button onClick={handleLogout} aria-label="Logout">
+              <UserCircleIcon className="h-6 w-6 text-customGray" />
+            </button>
           </div>
         </div>
       </div>
