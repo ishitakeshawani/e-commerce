@@ -1,5 +1,5 @@
 import { HydrateClient } from "~/trpc/server";
-import SignUp from "./signup/page"
+import ProductsPage from "./products/page";
 
 export default function Home() {
 
@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <HydrateClient>
       <main className="flex flex-col min-h-screen items-center">
-       <SignUp />
+       <ProductsPage />
       </main>
     </HydrateClient>
   );

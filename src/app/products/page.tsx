@@ -1,6 +1,9 @@
-import React from 'react'
+"use client";
 
-const page = () => {
+import React from 'react'
+import withAuth from '../_components/withauth';
+
+const ProductsPage = () => {
   return (
     <div>
       product
@@ -8,4 +11,4 @@ const page = () => {
   )
 }
 
-export default page
+export default withAuth(ProductsPage)
