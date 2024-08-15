@@ -1,12 +1,32 @@
 "use client";
-
 import Link from "next/link";
 import {
   MagnifyingGlassIcon as SearchIcon,
   ShoppingCartIcon,
 } from "@heroicons/react/24/outline";
+import { useEffect, useState } from "react";
+import { getUser } from "../utills";
+
+interface User {
+  name: string;
+  email: string;
+}
 
 export const Navbar = () => {
+  const [username, setUsername] = useState<string>("User");
+
+  useEffect(() => {
+    const user = getUser();
+    if (user) {
+      try {
+        const parsedUserData = JSON.parse(user) as User;
+        setUsername(parsedUserData.name || "User");
+      } catch (error) {
+        console.error("Failed to parse user data:", error);
+      }
+    }
+  }, []);
+
   return (
     <nav className="w-full bg-white">
       <div className="right-0 top-0 mr-4 mt-4 w-full px-4">
@@ -21,7 +41,7 @@ export const Navbar = () => {
           </Link>
           <Link href="/">
             <span className="text-xs font-normal text-customGray">
-              Hi, User
+              Hi, {username}
             </span>
           </Link>
         </div>
