@@ -19,12 +19,20 @@ model Post {
     @@index([name])
 }
 
+model Category {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  users       User[]   @relation("UserSelectedCategories")
+}
+
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  password  String
-  createdAt DateTime @default(now())
+  id                String     @id @default(uuid())
+  name              String
+  email             String     @unique
+  password          String
+  createdAt         DateTime   @default(now())
+  selectedCategories Category[] @relation("UserSelectedCategories")
 }
 
 model OTP {
