@@ -33,6 +33,7 @@ model User {
   password          String
   createdAt         DateTime   @default(now())
   selectedCategories Category[] @relation("UserSelectedCategories")
+  isEmailVerified Boolean  @default(false)
 }
 
 model OTP {

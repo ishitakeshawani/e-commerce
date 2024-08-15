@@ -103,6 +103,11 @@ export const authRouter = createTRPCRouter({
           expiresIn: '1h',
         });
 
+        await prisma.user.update({
+          where: { id: user.id },
+          data: { isEmailVerified: true },
+        });
+
 
         return { message: 'OTP verified successfully', user:userData, token };
 
@@ -138,6 +143,10 @@ export const authRouter = createTRPCRouter({
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
           throw new Error('Invalid email or password');
+        }
+
+        if (!user.isEmailVerified) {
+          throw new Error('Please verify your email before logging in.');
         }
 
         const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, {
