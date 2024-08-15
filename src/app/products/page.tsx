@@ -1,12 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import withAuth from "../_components/withauth";
+import { useEffect, useState } from "react";
 import { Pagination } from "../_components/pagination";
 import { useCategories } from "../hooks/useCategories";
 import CategoryList from "../_components/categorylist";
+import { isAuthenticated } from "../utills";
+import { redirect } from "next/navigation";
 
 const CategoriesPage = () => {
+  const session = isAuthenticated();
+  useEffect(() => {
+    if (!session) {
+      redirect("/signup");
+    }
+  }, [session]);
   const [page, setPage] = useState(1);
   const { data, isLoading, isError, selectedCategories, handleCategorySelect } = useCategories(page);
 
@@ -44,4 +51,4 @@ const CategoriesPage = () => {
   );
 };
 
-export default withAuth(CategoriesPage);
+export default CategoriesPage
