@@ -16,6 +16,7 @@ const CategoryList: FC<CategoryListProps> = ({ categories, selectedCategories, o
   <ul className="my-2">
     {categories.map((category) => (
       <li key={category.id} className="py-1 flex items-center">
+        <label className="flex items-center cursor-pointer">
         <input
           type="checkbox"
           checked={selectedCategories.includes(category.id)}
@@ -23,6 +24,7 @@ const CategoryList: FC<CategoryListProps> = ({ categories, selectedCategories, o
           className="mr-2 cursor-pointer"
         />
         {category.name}
+        </label>
       </li>
     ))}
   </ul>
